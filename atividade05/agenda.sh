@@ -42,7 +42,7 @@
 case $1 in
     adicionar)
         if [ $# -ne 3 ]; then
-            echo "Número de parâmetros inválido"
+            #echo "Número de parâmetros inválido"
             echo "Uso: $0 adicionar <nome> <email>"
             exit 1
         fi
@@ -85,5 +85,6 @@ case $1 in
         echo "Usuário $user removido."
         ;;
     *)
+        echo "Usage: $0 {adicionar|listar|remover}"
         ;;
 esac
