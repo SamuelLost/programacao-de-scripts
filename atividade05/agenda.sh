@@ -60,6 +60,11 @@ case $1 in
         ;;
     listar)
         if [ ! -f agenda.db ]; then
+            echo "Arquivo não existe!!!"
+            exit 1
+        fi
+        # Arquivo vazio
+        if [ ! -s agenda.db ]; then
             echo "Arquivo vazio!!!"
             exit 1
         fi
@@ -72,6 +77,11 @@ case $1 in
             exit 1
         fi
         if [ ! -f agenda.db ]; then
+            echo "Arquivo não existe!!!"
+            exit 1
+        fi
+        # Arquivo vazio
+        if [ ! -s agenda.db ]; then
             echo "Arquivo vazio!!!"
             exit 1
         fi
@@ -80,9 +90,8 @@ case $1 in
             echo "Usuário não existe!!!"
             exit 1
         fi
-        user=$(grep "$2" agenda.db | cut -d ':' -f1)
+        echo "Usuário $(grep "$2" agenda.db | cut -d ':' -f1) removido."
         sed -i "/$2/d" agenda.db
-        echo "Usuário $user removido."
         ;;
     *)
         echo "Usage: $0 {adicionar|listar|remover}"
