@@ -7,6 +7,7 @@
 # ordenada do menor para o maior tempo médio de resposta, informando além do endereço, o
 # tempo de resposta médio. Observação: não pode usar awk.
 NUM_PACOTES=10
+INTERVALO=0,2
 
 if [ $# -ne 1 ]; then
     echo "Uso: $0 <arquivo>"
@@ -19,7 +20,8 @@ if [ ! -f $1 ]; then
 fi
 
 for ip in $(cat $1); do
-    media=$(ping -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)
+    media=$(ping -i $INTERVALO -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)
+    #media=$(sudo ping -f -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)
     echo "${ip} ${media}ms" >> lista_ip_media.txt
 done
 cat lista_ip_media.txt | sort -n -k2
