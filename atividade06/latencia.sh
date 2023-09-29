@@ -20,8 +20,8 @@ if [ ! -f $1 ]; then
 fi
 
 for ip in $(cat $1); do
-    media=$(ping -i $INTERVALO -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)
-    #media=$(sudo ping -f -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)
+    # media=$(ping -i $INTERVALO -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)
+    media=$(ping -f -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)
     echo "${ip} ${media}ms" >> lista_ip_media.txt
 done
 cat lista_ip_media.txt | sort -n -k2
