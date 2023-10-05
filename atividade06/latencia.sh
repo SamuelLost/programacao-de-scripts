@@ -26,3 +26,8 @@ for ip in $(cat $1); do
 done
 cat lista_ip_media.txt | sort -n -k2
 rm lista_ip_media.txt 
+
+# Jeito do Junior (inteligentíssimo)
+# for ip in $(cat $1); do
+#     echo "$ip $(ping -f -c $NUM_PACOTES $ip | tail -n 1 | cut -d '/' -f5)ms"
+# done | sort -n -k2
