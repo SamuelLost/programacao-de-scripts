@@ -14,16 +14,22 @@
 #outro para criar os 20 arquivos. Você deve obrigatoriamente utilizar laços aninhados para criar a
 #estrutura.
 
+if [ -d cinco ]; then
+    rm -r cinco
+fi
+
 mkdir cinco
 cd cinco
 for i in $(seq 1 5); do
     mkdir dir$i
     cd dir$i
     for j in $(seq 1 4); do
-        echo $j > arq$j.txt
+        for k in $(seq 1 $j); do
+            echo $j >> arq$j.txt
+        done
     done
     cd ..
 done
 cd ..
-tree cinco
-rm -r cinco
+# tree cinco
+# rm -r cinco
