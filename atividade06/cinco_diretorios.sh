@@ -13,6 +13,10 @@
 #Você não pode repetir chamadas ao mkdir 6 vezes e executar 20 comandos um atrás do
 #outro para criar os 20 arquivos. Você deve obrigatoriamente utilizar laços aninhados para criar a
 #estrutura.
+if [ $# -ne 0 ]; then
+    echo "Uso: $0"
+    exit 1
+fi
 
 if [ -d cinco ]; then
     rm -r cinco
