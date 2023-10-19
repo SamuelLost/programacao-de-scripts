@@ -20,18 +20,20 @@
 
 INTERVALO=$1
 DIRETORIO=$2
-ARQUIVO_LOG="dirSensors.log"
-cd $DIRETORIO
+ARQUIVO_LOG="$(pwd)/dirSensors.log"
+# ARQUIVO_LOG="dirSensors.log"
+# echo $ARQUIVO_LOG
 
 if [ $# -ne 2 ]; then
     echo "usage: $0 <intervalo> <diretorio>"
     exit 1
 fi
 
-if [ ! -e $ARQUIVO_LOG ]; then
-    touch $ARQUIVO_LOG
+if [ ! -f "$ARQUIVO_LOG" ]; then
+    touch "$ARQUIVO_LOG"
 fi
 
+cd $DIRETORIO
 QTDFILES=$(ls | wc -l)
 FILES=$(ls)
 
@@ -49,7 +51,7 @@ while true; do
         done
         # fileAdded=${fileAdded::-2}
         fileAdded=$(echo $fileAdded | sed 's/,$//')
-        echo "[$(date +"%d-%m-%Y %H:%M:%S")] Alteração! $QTDFILES->$NEWQTDFILES. Adicionados: $fileAdded" | tee -a $ARQUIVO_LOG
+        echo "[$(date +"%d-%m-%Y %H:%M:%S")] Alteração! $QTDFILES->$NEWQTDFILES. Adicionados: $fileAdded" | tee -a "$ARQUIVO_LOG"
         FILES=$NEWFILES
         QTDFILES=$NEWQTDFILES
     fi
@@ -63,7 +65,7 @@ while true; do
         done
         # fileRemoved=${fileRemoved::-2}
         fileRemoved=$(echo $fileRemoved | sed 's/,$//')
-        echo "[$(date +"%d-%m-%Y %H:%M:%S")] Alteração! $QTDFILES->$NEWQTDFILES. Removidos: $fileRemoved" | tee -a $ARQUIVO_LOG
+        echo "[$(date +"%d-%m-%Y %H:%M:%S")] Alteração! $QTDFILES->$NEWQTDFILES. Removidos: $fileRemoved" | tee -a "$ARQUIVO_LOG"
         FILES=$NEWFILES
         QTDFILES=$NEWQTDFILES
     fi
