@@ -14,8 +14,8 @@
 #  que: 1
 #  vivo: 1
 
-# read -p 'Informe o arquivo: ' arquivo
-arquivo=$1
+read -p 'Informe o arquivo: ' arquivo
+# arquivo=$1
 
 palavras_arquivo=($(cat $arquivo | tr -s ' ' '\n' | tr -d '[:punct:]' | sort | uniq))
 
