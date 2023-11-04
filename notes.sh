@@ -231,3 +231,30 @@ w -h | cut -d ' ' -f1 | xargs # xargs deixa no formato de lista
 
 nohup ./script.sh & #Executa o script em background e não mata o processo quando o terminal é fechado
 ./mensagem.sh "[`date +%H:%M:%S`] Iniciando o script" >> log.txt #Redireciona a saída do script para o arquivo log.txt
+
+
+# Leitura e escrita 
+tput setaf 1 #Muda a cor da fonte para vermelho
+tput setaf 2 #Muda a cor da fonte para verde
+tput cup 10 10 #Move o cursor para a linha 10 e coluna 10
+
+read -p "Digite seu nome: " nome #Lê o nome digitado pelo usuário
+read -s -p "Digite sua senha: " senha #Lê a senha digitada pelo usuário sem mostrar na tela
+read -n1 -p "Digite uma letra: " letra #Lê apenas um caractere digitado pelo usuário
+read -t 5 -p "Digite seu nome: " nome #Lê o nome digitado pelo usuário em 5 segundos
+
+printf "Olá, %s\n" $nome #Imprime o nome digitado pelo usuário
+
+#Do processo filho pro processo pai: source ./script.sh
+#Do processo pai pro processo filho: export VARIAVEL="valor"
+# Mexendo na vari[avel] PATH
+#mkdir python
+# PATH=/home/samuel/python:$PATH    
+
+for i in arq{A..Z}{1..5}.txt; do
+    echo $i
+done
+
+vet=(1 2 3 4 5)
+echo ${vet[@]}
+echo ${#vet[@]}
