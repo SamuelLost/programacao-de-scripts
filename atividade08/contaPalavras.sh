@@ -31,5 +31,5 @@ while IFS= read -r linha; do
 done < $arquivo
 
 for count in ${!contadores[@]}; do
-    echo "$count: ${contadores[$count]}"
+    echo -e "$count:\t${contadores[$count]}"
 done | sort -t':' -k2nr
