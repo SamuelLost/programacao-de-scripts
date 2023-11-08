@@ -1,0 +1,4 @@
+Matriculo:Nome:Nota
+000000:Joao:10
+111111:Jose:9
+222222:Ana:8
