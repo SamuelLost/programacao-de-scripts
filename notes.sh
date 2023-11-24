@@ -258,3 +258,77 @@ done
 vet=(1 2 3 4 5)
 echo ${vet[@]}
 echo ${#vet[@]}
+
+cano="|"
+eval ls $cano | wc -l
+
+soma() {
+    echo $(( $1 + $2 ))
+}
+
+function command_not_found_handle {
+    echo "Erro na linha ${BASH_LINENO[0]}"
+    exit
+}
+
+mkfifo cano
+ls > cano
+#Em outro terminal
+cat < cano
+
+# getopts - Trata os argumentos passados para o script
+getopts "a:b:c" OPT
+
+# Depuração
+set -x # Mostra os comandos que estão sendo executados
+set +x # Para de mostrar os comandos que estão sendo executados
+
+# AWK
+# $1 -> Primeira coluna. Primeiro campo separado por espaço
+awk '$1 == "Paula" {print $2, $3}' # pega do teclado
+awk '$2 == "FRANCISCO" {print $1, $3}' alunos.txt ... arquivoN.txt # pega do arquivo
+awk -f script.awk alunos.txt ... arquivoN.txt # pega do arquivo
+awk -F: '$1 == "samuel.alencar" {print $3}' /etc/passwd # -F: -> separador :
+#print -> printa a linha inteira
+awk '$2 <= "E" {print}' alunos.txt # printa as linhas que tem a segunda coluna menor ou igual a E
+awk '$2 <= "E" && $3 >= "C" {print}' alunos.txt # printa as linhas que tem a segunda coluna menor ou igual a E e maior ou igual a C 
+awk '$1 ~ /^4/ {print}' alunos.txt # printa as linhas que tem a primeira coluna que começa com 4 com expressão regular
+awk '$1 !~ /^4/ {print}' alunos.txt # printa as linhas que não tem a primeira coluna que começa com 4 com expressão regular
+awk '$2 ~ /(FRANCISCO|JOAO)/ {print}' alunos.txt 
+awk '{print NF}' alunos.txt # NF -> Número de campos
+awk '{print $NF}' alunos.txt # Referencia o último campo e printa o conteúdo
+awk '{print NR}' alunos.txt # NR -> Número da linha
+
+# BEGIN e END
+awk 'BEGIN {print "Iniciando"} {print $0} END {print "Finalizando"}' alunos.txt
+
+# Variáveis
+# FS -> Field Separator
+# OFS -> Output Field Separator
+# RS -> Record Separator
+# ORS -> Output Record Separator
+# NR -> Número da linha
+# NF -> Número de campos
+# FILENAME -> Nome do arquivo
+# FNR -> Número da linha no arquivo
+# ARGC -> Número de argumentos
+# ARGV -> Argumentos
+
+# Funções
+awk 'BEGIN {print length("samuel")}' # length -> tamanho da string
+awk 'BEGIN {print substr("samuel", 2, 3)}' # substr -> substring
+awk 'BEGIN {print index("samuel", "m")}' # index -> posição da primeira ocorrência
+awk 'BEGIN {print match("samuel123", /[0-9]/) }' # match -> posição da primeira ocorrência
+awk 'BEGIN {print split("samuel alencar", array, " "); print array[1]}' # split -> divide a string em um array
+
+# stress -> estressa o processador. programa de teste
+stress --vm 2 --vm-bytes 128M --vm-hang 0 # 2 processos, 128 MB de memória, sem pausa
+
+{
+    PrimeirasNotas[$1] = $2
+}
+END {
+    for (aluno in PrimeirasNotas) {
+        print aluno, ":", PrimeirasNotas[aluno] | "sort -t: -n -k2"
+    }
+}
