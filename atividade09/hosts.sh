@@ -39,8 +39,8 @@ verificar_arquivo() {
 
 # Função para adicionar um par (nomedamaquina,IP) para cada entrada.
 adicionar() {
-    grep -wq "$2" ${HOST_FILE} # Procura o IP
-    if [ $? -eq 0 ]; then
+     # Procura o IP
+    if grep -wq "$2" ${HOST_FILE}; then
         echo "IP já existe"
         exit 1
     fi
@@ -116,4 +116,3 @@ shift $((OPTIND-1)) # Remove os parâmetros já tratados
 if [ $1 ]; then
     procurar $1
 fi
-# procurar $1
